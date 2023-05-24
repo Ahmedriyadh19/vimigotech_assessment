@@ -1,17 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:vimigotech_assessment/Model/user.dart';
 
 class ReadWriteJson {
-  String path;
-  ReadWriteJson({
-    required this.path,
-  });
   Future<List<User>> readLocalJSON() async {
-    String jsonString = await rootBundle.loadString(path);
-    final jsonData = json.decode(jsonString);
     List<User> users = [];
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = '${documentsDirectory.path}/dataset.json';
+    File file = File(path);
+    String jsonString = await file.readAsString();
+    final jsonData = json.decode(jsonString);
     final userJsonList = jsonData['User'] as List<dynamic>;
     for (var item in userJsonList) {
       users.add(User.fromJson(item));
@@ -20,6 +19,8 @@ class ReadWriteJson {
   }
 
   Future<File> _getLocalFile() async {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = '${documentsDirectory.path}/dataset.json';
     return File(path);
   }
 

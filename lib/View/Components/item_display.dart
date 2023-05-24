@@ -1,7 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'package:vimigotech_assessment/Model/user.dart';
 import 'package:vimigotech_assessment/Services/time_ago.dart';
 

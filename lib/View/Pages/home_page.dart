@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vimigotech_assessment/Controller/read_write_json.dart';
+import 'package:vimigotech_assessment/Controller/time_mode.dart';
 import 'package:vimigotech_assessment/Model/user.dart';
 import 'package:vimigotech_assessment/View/Components/item_display.dart';
+import 'package:vimigotech_assessment/View/Components/add_new_user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,28 +13,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final Future<SharedPreferences> preferences = SharedPreferences.getInstance();
-  List<User> users = [];
-  bool isTimeAgoActive = true;
-  ReadWriteJson readWriteJson = ReadWriteJson(path: 'lib/Data/dataset.json');
+  static List<User> users = [];
+  bool isTimeAgoActive = false;
+  ReadWriteJson readWriteJson = ReadWriteJson();
+  TimeModeControl timeMode = TimeModeControl();
 
   @override
   void initState() {
+    intiMode();
     super.initState();
-    getMode();
   }
 
-  void getMode() async {
-    final SharedPreferences pref = await preferences;
+  void intiMode() async {
+    isTimeAgoActive = await timeMode.getMode();
     setState(() {
-      isTimeAgoActive = pref.getBool('timeMode') ?? false;
-    });
-  }
-
-  void setTimeMode({required bool mode}) async {
-    final SharedPreferences pref = await preferences;
-    setState(() {
-      pref.setBool('timeMode', mode);
+      isTimeAgoActive;
     });
   }
 
@@ -45,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  switcherTime() {
+  Row switcherTime() {
     return Row(
       children: [
         Icon(isTimeAgoActive ? Icons.timelapse_rounded : Icons.timer_off_rounded),
@@ -58,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             setState(() {
               isTimeAgoActive = value;
             });
-            setTimeMode(mode: isTimeAgoActive);
+            await timeMode.setTimeMode(mode: isTimeAgoActive);
           },
         ),
       ],
@@ -89,14 +83,26 @@ class _HomePageState extends State<HomePage> {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else {
           users = snapshot.data!;
+          users.sort(
+            (a, b) => b.checkIn.compareTo(a.checkIn),
+          );
           return dataBuilder();
         }
       },
     );
   }
 
+  FloatingActionButton add() {
+    return FloatingActionButton(
+      child: const Icon(Icons.add),
+      onPressed: () {
+        AddNewUser(context: context);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: myAppBar(), body: buildBody());
+    return Scaffold(appBar: myAppBar(), body: buildBody(), floatingActionButton: add());
   }
 }
