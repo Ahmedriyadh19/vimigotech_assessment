@@ -96,9 +96,13 @@ class _HomePageState extends State<HomePage> {
     return FloatingActionButton(
       child: const Icon(Icons.add),
       onPressed: () {
-        AddNewUser(context: context);
+        AddNewUser(context: context, update: _update);
       },
     );
+  }
+
+  void _update() {
+    setState(() {});
   }
 
   @override

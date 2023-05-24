@@ -1,7 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'package:vimigotech_assessment/Controller/read_write_json.dart';
 import 'package:vimigotech_assessment/Model/user.dart';
 import 'package:vimigotech_assessment/View/Components/text_button.dart';
@@ -15,9 +17,12 @@ class AddNewUser {
   String? _errors;
   List<Widget> _listInput = [];
   bool _hasError = false;
+ final Function update;
 
   AddNewUser({
     required this.context,
+    this.selectedDateTime,
+    required this.update,
   }) {
     _init();
     _showMyDialog();
@@ -78,6 +83,7 @@ class AddNewUser {
       users.add(temp);
       await readWriteJson.writeLocalJSON(users);
       cancelBtnAction();
+      update();
     }
   }
 
