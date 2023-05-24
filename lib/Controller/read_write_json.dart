@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:vimigotech_assessment/Model/user.dart';
 
@@ -9,7 +10,12 @@ class ReadWriteJson {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = '${documentsDirectory.path}/dataset.json';
     File file = File(path);
-    String jsonString = await file.readAsString();
+    String? jsonString;
+    try {
+      jsonString = await file.readAsString();
+    } catch (_) {
+      jsonString = await rootBundle.loadString('lib/Data/dataset.json');
+    }
     final jsonData = json.decode(jsonString);
     final userJsonList = jsonData['User'] as List<dynamic>;
     for (var item in userJsonList) {
