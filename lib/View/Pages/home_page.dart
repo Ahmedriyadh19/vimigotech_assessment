@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toggle_list/toggle_list.dart';
 import 'package:vimigotech_assessment/Controller/read_write_json.dart';
 import 'package:vimigotech_assessment/Controller/time_mode.dart';
 import 'package:vimigotech_assessment/Model/user.dart';
@@ -13,15 +14,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static List<User> users = [];
+  List<User> users = [];
   bool isTimeAgoActive = false;
   ReadWriteJson readWriteJson = ReadWriteJson();
   TimeModeControl timeMode = TimeModeControl();
 
   @override
   void initState() {
-    intiMode();
     super.initState();
+    intiMode();
+    fetchData();
   }
 
   void intiMode() async {
@@ -35,8 +37,17 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
       centerTitle: true,
       title: const Text('Attendance'),
-      actions: [switcherTime()],
     );
+  }
+
+  Future<void> fetchData() async {
+    try {
+      List<User> data = await readWriteJson.readLocalJSON();
+      setState(() {
+        users = data;
+        users.sort((a, b) => b.checkIn.compareTo(a.checkIn));
+      });
+    } catch (_) {}
   }
 
   Row switcherTime() {
@@ -61,6 +72,7 @@ class _HomePageState extends State<HomePage> {
 
   ListView dataBuilder() {
     return ListView.builder(
+      shrinkWrap: true,
       itemCount: users.length,
       itemBuilder: (context, index) {
         return UserBoxDisplay(
@@ -71,24 +83,58 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  FutureBuilder buildBody() {
-    return FutureBuilder(
-      future: readWriteJson.readLocalJSON(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else {
-          users = snapshot.data!;
-          users.sort(
-            (a, b) => b.checkIn.compareTo(a.checkIn),
-          );
-          return dataBuilder();
-        }
+  search() {
+    return TextField(
+      decoration: const InputDecoration(
+          border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          labelText: 'Search',
+          prefixIcon: Icon(Icons.search_rounded)),
+      onChanged: (value) {
+        setState(() {});
       },
+    );
+  }
+
+  Container pin() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.2),
+        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: ToggleList(shrinkWrap: true, children: [
+        ToggleListItem(
+            title: const Center(
+                child: Text(
+              'Settings',
+              style: TextStyle(fontSize: 20),
+            )),
+            leading: const Icon(Icons.settings),
+            content: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(child: search()),
+                    switcherTime(),
+                  ],
+                ),
+              ],
+            )),
+      ]),
+    );
+  }
+
+  Column buildBody() {
+    return Column(
+      children: [
+        pin(),
+        Expanded(child: users.isEmpty ? const Center(child: CircularProgressIndicator()) : dataBuilder()),
+      ],
     );
   }
 

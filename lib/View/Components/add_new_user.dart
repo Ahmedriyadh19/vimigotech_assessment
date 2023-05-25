@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -17,7 +18,7 @@ class AddNewUser {
   String? _errors;
   List<Widget> _listInput = [];
   bool _hasError = false;
- final Function update;
+  final Function update;
 
   AddNewUser({
     required this.context,
@@ -42,11 +43,16 @@ class AddNewUser {
 
   AlertDialog dialog({required Function setState}) {
     return AlertDialog(
-      title: const Center(
-          child: Icon(
-        Icons.person_add_rounded,
-        size: 35.0,
-      )),
+      title: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Icon(
+            Icons.checklist_rounded,
+            size: 35.0,
+          ),
+          Text('New Attendance')
+        ],
+      ),
       content: SingleChildScrollView(
         child: ListBody(children: [
           _listInput[0],
@@ -84,7 +90,23 @@ class AddNewUser {
       await readWriteJson.writeLocalJSON(users);
       cancelBtnAction();
       update();
+      successACtion();
     }
+  }
+
+  Future successACtion() {
+    return AwesomeDialog(
+      context: context,
+      animType: AnimType.leftSlide,
+      headerAnimationLoop: false,
+      dialogType: DialogType.success,
+      showCloseIcon: true,
+      title: 'Success',
+      desc: 'successfully completed the action',
+      btnOkOnPress: () {},
+      btnOkIcon: Icons.check_circle,
+      onDismissCallback: (type) {},
+    ).show();
   }
 
   bool looksGood({required Function state}) {

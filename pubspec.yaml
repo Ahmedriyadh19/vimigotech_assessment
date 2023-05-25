@@ -38,6 +38,8 @@ dependencies:
   intl: ^0.18.1
   shared_preferences: ^2.1.1
   path_provider: ^2.0.15
+  awesome_dialog: ^3.1.0
+  toggle_list: ^0.3.0
 
 dev_dependencies:
   flutter_test:
