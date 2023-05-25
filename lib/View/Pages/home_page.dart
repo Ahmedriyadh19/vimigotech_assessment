@@ -32,13 +32,13 @@ class _HomePageState extends State<HomePage> {
   void sort() {
     switch (_selectedValue) {
       case 0:
-        _isChecked ? allUsers.sort((a, b) => b.user.compareTo(a.user)) : allUsers.sort((a, b) => a.user.compareTo(b.user));
+        _isChecked ? filteredUsers.sort((a, b) => b.user.compareTo(a.user)) : filteredUsers.sort((a, b) => a.user.compareTo(b.user));
         break;
       case 1:
-        _isChecked ? allUsers.sort((a, b) => b.phone.compareTo(a.phone)) : allUsers.sort((a, b) => a.phone.compareTo(b.phone));
+        _isChecked ? filteredUsers.sort((a, b) => b.phone.compareTo(a.phone)) : filteredUsers.sort((a, b) => a.phone.compareTo(b.phone));
         break;
       case 2:
-        _isChecked ? allUsers.sort((a, b) => a.checkIn.compareTo(b.checkIn)) : allUsers.sort((a, b) => b.checkIn.compareTo(a.checkIn));
+        _isChecked ? filteredUsers.sort((a, b) => a.checkIn.compareTo(b.checkIn)) : filteredUsers.sort((a, b) => b.checkIn.compareTo(a.checkIn));
         break;
     }
   }
@@ -131,18 +131,23 @@ class _HomePageState extends State<HomePage> {
 
   Container pin() {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 4.0),
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.2),
-        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
+        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: ToggleList(shrinkWrap: true, children: [
         ToggleListItem(
-            title: const Center(
+            title: const SizedBox(
+              height: 60,
+              child: Center(
                 child: Text(
-              'Settings',
-              style: TextStyle(fontSize: 20),
-            )),
+                  'Settings',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
             leading: const Icon(Icons.settings),
             content: Column(
               children: [
