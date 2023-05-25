@@ -3,84 +3,36 @@ class CountTimeAgo {
 
   CountTimeAgo(this.dateTime);
 
-  String timeAgo() {
-    Duration difference = DateTime.now().difference(dateTime);
+  String _afterDot({required double tempDateTime, required String type}) {
     String timeAgo = '';
-    double tempDataTime = 0.0;
-
-    switch (difference.inDays) {
-      case > 2200:
-        timeAgo = "Too Old!";
-        break;
-      case > 365:
-        tempDataTime = difference.inDays / 365;
-        String count = tempDataTime.toStringAsFixed(1);
-        double.tryParse(count)! <= 1 ? timeAgo = ('$count Year ago') : timeAgo = ('$count Years ago');
-        break;
-      case > 30:
-        tempDataTime = difference.inDays / 30;
-        String count = tempDataTime.toStringAsFixed(1);
-        double.tryParse(count)! <= 1 ? timeAgo = ('$count Month ago') : timeAgo = ('$count Months ago');
-        break;
-      case > 0:
-        tempDataTime = difference.inDays.toDouble();
-        String count = tempDataTime.toStringAsFixed(1);
-        double.tryParse(count)! <= 1 ? timeAgo = ('$count Day ago') : timeAgo = ('$count Days ago');
-        break;
-      default:
-        if (difference.inHours > 0) {
-          tempDataTime = difference.inHours.toDouble();
-          String count = tempDataTime.toStringAsFixed(1);
-          double.tryParse(count)! <= 1 ? timeAgo = ('$count Hour ago') : timeAgo = ('$count Hours ago');
-        } else if (difference.inMinutes > 0) {
-          tempDataTime = difference.inMinutes.toDouble();
-          String count = tempDataTime.toStringAsFixed(1);
-          double.tryParse(count)! <= 1 ? timeAgo = ('$count Minute ago') : timeAgo = ('$count Minutes ago');
-        } else if (difference.inSeconds > 10) {
-          timeAgo = "${(difference.inSeconds).round()} seconds ago";
-        } else if (difference.inSeconds > 0 && difference.inSeconds < 10) {
-          timeAgo = "Just now!";
-        } else {
-          timeAgo = "You should not be in the future yet ^^!";
-        }
-        break;
-    }
+    String count = tempDateTime.toStringAsFixed(1);
+    double.tryParse(count)! <= 1
+        ? timeAgo = ('${count.split('.')[1].contains('0') ? count.split('.')[0] : count} $type ago')
+        : timeAgo = ('${count.split('.')[1].contains('0') ? count.split('.')[0] : count} ${'${type}s '}ago');
 
     return timeAgo;
   }
 
-/*
   String timeAgo() {
     Duration difference = DateTime.now().difference(dateTime);
-    String timeAgo = '';
-    double tempDataTime = 0.0;
-
-    if (difference.inDays > 365) {
-      tempDataTime = difference.inDays / 365;
-      String count = tempDataTime.toStringAsFixed(1);
-      double.tryParse(count)! <= 1 ? timeAgo = ('$count Year ago') : timeAgo = ('$count Years ago');
+    if (difference.inDays > 3650) {
+      return "Too Old!";
+    } else if (difference.inDays > 365) {
+      return _afterDot(tempDateTime: difference.inDays / 365, type: 'Year');
     } else if (difference.inDays > 30) {
-      tempDataTime = difference.inDays / 30;
-      String count = tempDataTime.toStringAsFixed(1);
-      double.tryParse(count)! <= 1 ? timeAgo = ('$count Month ago') : timeAgo = ('$count Months ago');
+      return _afterDot(tempDateTime: difference.inDays / 30, type: 'Month');
     } else if (difference.inDays > 0) {
-      tempDataTime = difference.inDays.toDouble();
-      String count = tempDataTime.toStringAsFixed(1);
-      double.tryParse(count)! <= 1 ? timeAgo = ('$count Day ago') : timeAgo = ('$count Days ago');
+      return _afterDot(tempDateTime: difference.inDays.toDouble(), type: 'Day');
     } else if (difference.inHours > 0) {
-      tempDataTime = difference.inHours.toDouble();
-      String count = tempDataTime.toStringAsFixed(1);
-      double.tryParse(count)! <= 1 ? timeAgo = ('$count Hour ago') : timeAgo = ('$count Hours ago');
+      return _afterDot(tempDateTime: difference.inHours.toDouble(), type: 'Hour');
     } else if (difference.inMinutes > 0) {
-      tempDataTime = difference.inMinutes.toDouble();
-      String count = tempDataTime.toStringAsFixed(1);
-      double.tryParse(count)! <= 1 ? timeAgo = ('$count Minute ago') : timeAgo = ('$count Minutes ago');
+      return _afterDot(tempDateTime: difference.inMinutes.toDouble(), type: 'Minute');
     } else if (difference.inSeconds > 10) {
-      timeAgo = "${(difference.inSeconds).round()} seconds ago";
+      return _afterDot(tempDateTime: difference.inSeconds.toDouble(), type: 'Sec');
+    } else if (difference.inSeconds > 0 && difference.inSeconds < 10) {
+      return "Just now";
     } else {
-      timeAgo = "Just now!";
+      return "You attend in future!";
     }
-
-    return timeAgo;
-  }*/
+  }
 }

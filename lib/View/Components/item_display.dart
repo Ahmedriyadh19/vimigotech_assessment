@@ -16,7 +16,7 @@ class UserBoxDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       child: ListTile(
         leading: CircleAvatar(child: Text(target.user[0].toUpperCase())),
         title: Text(target.user),
