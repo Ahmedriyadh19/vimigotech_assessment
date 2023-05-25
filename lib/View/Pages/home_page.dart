@@ -14,8 +14,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<User> users = [];
+  List<User> allUsers = [];
+  List<User> filteredUsers = [];
   bool isTimeAgoActive = false;
+  bool _isChecked = false;
+  int _selectedValue = 2;
   ReadWriteJson readWriteJson = ReadWriteJson();
   TimeModeControl timeMode = TimeModeControl();
 
@@ -44,9 +47,10 @@ class _HomePageState extends State<HomePage> {
     try {
       List<User> data = await readWriteJson.readLocalJSON();
       setState(() {
-        users = data;
-        users.sort((a, b) => b.checkIn.compareTo(a.checkIn));
+        allUsers = data;
       });
+      sort();
+      filteredUsers = List.from(allUsers);
     } catch (_) {}
   }
 
@@ -73,17 +77,17 @@ class _HomePageState extends State<HomePage> {
   ListView dataBuilder() {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: users.length,
+      itemCount: filteredUsers.length,
       itemBuilder: (context, index) {
         return UserBoxDisplay(
-          target: users[index],
+          target: filteredUsers[index],
           isTimeAgoActive: isTimeAgoActive,
         );
       },
     );
   }
 
-  search() {
+  TextField search() {
     return TextField(
       decoration: const InputDecoration(
           border: InputBorder.none,
@@ -94,7 +98,14 @@ class _HomePageState extends State<HomePage> {
           labelText: 'Search',
           prefixIcon: Icon(Icons.search_rounded)),
       onChanged: (value) {
-        setState(() {});
+        setState(() {
+          filteredUsers = allUsers
+              .where((user) =>
+                  user.user.toLowerCase().contains(value.toLowerCase()) ||
+                  user.phone.toLowerCase().contains(value.toLowerCase()) ||
+                  user.checkIn.toString().toLowerCase().contains(value.toLowerCase()))
+              .toList();
+        });
       },
     );
   }
@@ -116,6 +127,7 @@ class _HomePageState extends State<HomePage> {
             leading: const Icon(Icons.settings),
             content: Column(
               children: [
+                sortControl(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -129,11 +141,95 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void sort() {
+    switch (_selectedValue) {
+      case 0:
+        _isChecked ? allUsers.sort((a, b) => b.user.compareTo(a.user)) : allUsers.sort((a, b) => a.user.compareTo(b.user));
+        break;
+      case 1:
+        _isChecked ? allUsers.sort((a, b) => b.phone.compareTo(a.phone)) : allUsers.sort((a, b) => a.phone.compareTo(b.phone));
+        break;
+      case 2:
+        _isChecked ? allUsers.sort((a, b) => a.checkIn.compareTo(b.checkIn)) : allUsers.sort((a, b) => b.checkIn.compareTo(a.checkIn));
+        break;
+    }
+  }
+
+  Row sortControl() {
+    return Row(
+      children: [
+        const Icon(Icons.person),
+        Radio(
+          value: 0,
+          groupValue: _selectedValue,
+          onChanged: (value) {
+            setState(() {
+              _selectedValue = value!;
+              sort();
+            });
+          },
+        ),
+        const Icon(Icons.phone_android),
+        Radio(
+          value: 1,
+          groupValue: _selectedValue,
+          onChanged: (value) {
+            setState(() {
+              _selectedValue = value!;
+              sort();
+            });
+          },
+        ),
+        const Icon(Icons.calendar_month_rounded),
+        Radio(
+          value: 2,
+          groupValue: _selectedValue,
+          onChanged: (value) {
+            setState(() {
+              _selectedValue = value!;
+              sort();
+            });
+          },
+        ),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Checkbox(
+                value: _isChecked,
+                onChanged: (value) {
+                  setState(() {
+                    _isChecked = value!;
+                    sort();
+                  });
+                },
+              ),
+              const Icon(Icons.sort_rounded)
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   Column buildBody() {
     return Column(
       children: [
         pin(),
-        Expanded(child: users.isEmpty ? const Center(child: CircularProgressIndicator()) : dataBuilder()),
+        Expanded(child: filteredUsers.isEmpty ? noData() : dataBuilder()),
+      ],
+    );
+  }
+
+  noData() {
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CircularProgressIndicator(),
+        SizedBox(
+          height: 20,
+        ),
+        Text('No Data!'),
       ],
     );
   }
@@ -147,7 +243,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _update() {
+  void _update() async {
+    await fetchData();
     setState(() {});
   }
 
