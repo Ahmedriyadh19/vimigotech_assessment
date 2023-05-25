@@ -29,11 +29,30 @@ class _HomePageState extends State<HomePage> {
     fetchData();
   }
 
+  void sort() {
+    switch (_selectedValue) {
+      case 0:
+        _isChecked ? allUsers.sort((a, b) => b.user.compareTo(a.user)) : allUsers.sort((a, b) => a.user.compareTo(b.user));
+        break;
+      case 1:
+        _isChecked ? allUsers.sort((a, b) => b.phone.compareTo(a.phone)) : allUsers.sort((a, b) => a.phone.compareTo(b.phone));
+        break;
+      case 2:
+        _isChecked ? allUsers.sort((a, b) => a.checkIn.compareTo(b.checkIn)) : allUsers.sort((a, b) => b.checkIn.compareTo(a.checkIn));
+        break;
+    }
+  }
+
   void intiMode() async {
     isTimeAgoActive = await timeMode.getMode();
     setState(() {
       isTimeAgoActive;
     });
+  }
+
+  void _update() async {
+    await fetchData();
+    setState(() {});
   }
 
   AppBar myAppBar() {
@@ -141,20 +160,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void sort() {
-    switch (_selectedValue) {
-      case 0:
-        _isChecked ? allUsers.sort((a, b) => b.user.compareTo(a.user)) : allUsers.sort((a, b) => a.user.compareTo(b.user));
-        break;
-      case 1:
-        _isChecked ? allUsers.sort((a, b) => b.phone.compareTo(a.phone)) : allUsers.sort((a, b) => a.phone.compareTo(b.phone));
-        break;
-      case 2:
-        _isChecked ? allUsers.sort((a, b) => a.checkIn.compareTo(b.checkIn)) : allUsers.sort((a, b) => b.checkIn.compareTo(a.checkIn));
-        break;
-    }
-  }
-
   Row sortControl() {
     return Row(
       children: [
@@ -221,7 +226,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  noData() {
+  Column noData() {
     return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -241,11 +246,6 @@ class _HomePageState extends State<HomePage> {
         AddNewUser(context: context, update: _update);
       },
     );
-  }
-
-  void _update() async {
-    await fetchData();
-    setState(() {});
   }
 
   @override
