@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toggle_list/toggle_list.dart';
 import 'package:vimigotech_assessment/Controller/read_write_json.dart';
 import 'package:vimigotech_assessment/Controller/time_mode.dart';
 import 'package:vimigotech_assessment/Model/user.dart';
+import 'package:vimigotech_assessment/View/Components/background.dart';
 import 'package:vimigotech_assessment/View/Components/item_display.dart';
 import 'package:vimigotech_assessment/View/Components/add_new_user.dart';
 
@@ -94,7 +96,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   ListView dataBuilder() {
+    ScrollController scrollController = ScrollController();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+        Fluttertoast.showToast(
+            msg: 'You have reached the end of the list', toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.CENTER, timeInSecForIosWeb: 1);
+      }
+    });
     return ListView.builder(
+      controller: scrollController,
       shrinkWrap: true,
       itemCount: filteredUsers.length,
       itemBuilder: (context, index) {
@@ -222,7 +232,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Column buildBody() {
+  buildBody() {
     return Column(
       children: [
         pin(),
@@ -255,6 +265,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: myAppBar(), body: buildBody(), floatingActionButton: add());
+    return Scaffold(body: MyBackground(child: buildBody()), floatingActionButton: add());
   }
 }

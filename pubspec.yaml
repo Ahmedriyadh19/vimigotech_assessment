@@ -40,6 +40,8 @@ dependencies:
   awesome_dialog: ^3.1.0
   toggle_list: ^0.3.0
   flutter_launcher_icons: ^0.13.1
+  fluttertoast: ^8.2.2
+  glass: ^1.0.1+1
 
 dev_dependencies:
   flutter_test:
