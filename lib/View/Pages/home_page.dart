@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage> {
 
   Container pin() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 4.0),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.2),
         borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
@@ -149,7 +149,25 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: ToggleList(shrinkWrap: true, children: [
         ToggleListItem(
-            title: const SizedBox(
+            title: const Padding(
+              padding: EdgeInsets.all(12.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.settings,
+                    size: 40,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      'Settings',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            expandedTitle: const SizedBox(
               height: 60,
               child: Center(
                 child: Text(
@@ -158,7 +176,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            leading: const Icon(Icons.settings),
             content: Column(
               children: [
                 sortControl(),

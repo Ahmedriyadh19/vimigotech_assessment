@@ -40,7 +40,7 @@ class AddNewUser {
 
   AlertDialog dialog({required Function setState}) {
     return AlertDialog(
-      title: const Row(
+      title: const Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Icon(
