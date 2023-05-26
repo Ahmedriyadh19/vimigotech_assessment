@@ -177,43 +177,77 @@ class _HomePageState extends State<HomePage> {
 
   Row sortControl() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        const Icon(Icons.person),
-        Radio(
-          value: 0,
-          groupValue: _selectedValue,
-          onChanged: (value) {
-            setState(() {
-              _selectedValue = value!;
-              sort();
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+          child: Column(
+            children: [
+              Radio(
+                value: 0,
+                groupValue: _selectedValue,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedValue = value!;
+                    sort();
+                  });
+                },
+              ),
+              const Icon(Icons.person),
+              const Text(
+                'User Name',
+                style: TextStyle(fontSize: 9),
+              ),
+            ],
+          ),
         ),
-        const Icon(Icons.phone_android),
-        Radio(
-          value: 1,
-          groupValue: _selectedValue,
-          onChanged: (value) {
-            setState(() {
-              _selectedValue = value!;
-              sort();
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+          child: Column(
+            children: [
+              Radio(
+                value: 1,
+                groupValue: _selectedValue,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedValue = value!;
+                    sort();
+                  });
+                },
+              ),
+              const Icon(Icons.phone_android),
+              const Text(
+                'Phone Number',
+                style: TextStyle(fontSize: 9),
+              ),
+            ],
+          ),
         ),
-        const Icon(Icons.calendar_month_rounded),
-        Radio(
-          value: 2,
-          groupValue: _selectedValue,
-          onChanged: (value) {
-            setState(() {
-              _selectedValue = value!;
-              sort();
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+          child: Column(
+            children: [
+              Radio(
+                value: 2,
+                groupValue: _selectedValue,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedValue = value!;
+                    sort();
+                  });
+                },
+              ),
+              const Icon(Icons.calendar_month_rounded),
+              const Text(
+                'Phone Number',
+                style: TextStyle(fontSize: 9),
+              ),
+            ],
+          ),
         ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+          child: Column(
             children: [
               Checkbox(
                 value: _isChecked,
@@ -224,7 +258,16 @@ class _HomePageState extends State<HomePage> {
                   });
                 },
               ),
-              const Icon(Icons.sort_rounded)
+              _isChecked
+                  ? const Icon(Icons.sort)
+                  : Transform.flip(
+                      flipY: true,
+                      child: const Icon(Icons.sort),
+                    ),
+              Text(
+                _isChecked ? 'Descending' : 'Ascending',
+                style: const TextStyle(fontSize: 9),
+              ),
             ],
           ),
         ),

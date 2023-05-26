@@ -46,8 +46,6 @@ class _MyTextFieldState extends State<MyTextField> {
         errors = 'Can\'t be empty';
       }
     });
-
-  
   }
 
   InputDecoration boxDecor() {

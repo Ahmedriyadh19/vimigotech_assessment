@@ -22,7 +22,7 @@ class SelectedUserPage extends StatelessWidget {
     );
   }
 
-  dataDisplay() {
+  Container dataDisplay() {
     return Container(
         margin: const EdgeInsets.all(18),
         child: Column(
@@ -75,7 +75,7 @@ class SelectedUserPage extends StatelessWidget {
         ));
   }
 
-  backButton({required BuildContext ctx}) {
+  Align backButton({required BuildContext ctx}) {
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(

@@ -1,10 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'package:vimigotech_assessment/Controller/read_write_json.dart';
 import 'package:vimigotech_assessment/Model/user.dart';
 import 'package:vimigotech_assessment/View/Components/text_button.dart';
