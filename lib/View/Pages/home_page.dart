@@ -5,7 +5,7 @@ import 'package:vimigotech_assessment/Controller/read_write_json.dart';
 import 'package:vimigotech_assessment/Controller/time_mode.dart';
 import 'package:vimigotech_assessment/Model/user.dart';
 import 'package:vimigotech_assessment/View/Components/background.dart';
-import 'package:vimigotech_assessment/View/Components/item_display.dart';
+import 'package:vimigotech_assessment/View/Components/user_box_display.dart';
 import 'package:vimigotech_assessment/View/Components/add_new_user.dart';
 
 class HomePage extends StatefulWidget {

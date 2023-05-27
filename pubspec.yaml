@@ -44,6 +44,8 @@ dependencies:
   glass: ^1.0.1+1
   screenshot: ^2.1.0
   share_plus: ^7.0.1
+  carousel_slider: ^4.2.1
+  dots_indicator: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -59,10 +61,10 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "lib/Assets/icon.png"
+  image_path: "lib/Assets/Icons/icon.png"
   min_sdk_android: 21
-  adaptive_icon_background: "lib/Assets/icon_background.png"
-  adaptive_icon_foreground: "lib/Assets/icon_foreground.png"
+  adaptive_icon_background: "lib/Assets/Icons/icon_background.png"
+  adaptive_icon_foreground: "lib/Assets/Icons/icon_foreground.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -77,6 +79,9 @@ flutter:
   assets:
     - lib/Data/
     - lib/Assets/
+    - lib/Assets/Icons/
+    - lib/Assets/Background/
+    - lib/Assets/Onboarding/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

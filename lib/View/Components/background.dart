@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class MyBackground extends StatelessWidget {
@@ -13,7 +12,7 @@ class MyBackground extends StatelessWidget {
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
-        image: DecorationImage(image: AssetImage('lib/Assets/background.png'), fit: BoxFit.cover),
+        image: DecorationImage(image: AssetImage('lib/Assets/Background/background.png'), fit: BoxFit.cover),
       ),
       child: child,
     );
