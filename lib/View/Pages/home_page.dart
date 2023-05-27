@@ -6,7 +6,7 @@ import 'package:vimigotech_assessment/Controller/time_mode.dart';
 import 'package:vimigotech_assessment/Model/user.dart';
 import 'package:vimigotech_assessment/View/Components/background.dart';
 import 'package:vimigotech_assessment/View/Components/user_box_display.dart';
-import 'package:vimigotech_assessment/View/Components/add_new_user.dart';
+import 'package:vimigotech_assessment/View/Components/add_new_recorder.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -318,7 +318,7 @@ class _HomePageState extends State<HomePage> {
     return FloatingActionButton(
       child: const Icon(Icons.add),
       onPressed: () {
-        AddNewUser(context: context, update: _update);
+        AddNewRecorder(context: context, update: _update);
       },
     );
   }

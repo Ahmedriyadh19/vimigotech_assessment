@@ -7,7 +7,7 @@ import 'package:vimigotech_assessment/Model/user.dart';
 import 'package:vimigotech_assessment/View/Components/text_button.dart';
 import 'package:vimigotech_assessment/View/Components/text_field.dart';
 
-class AddNewUser {
+class AddNewRecorder {
   final BuildContext context;
   final TextEditingController _userName = TextEditingController();
   final TextEditingController _phone = TextEditingController();
@@ -17,7 +17,7 @@ class AddNewUser {
   bool _hasError = false;
   final Function update;
 
-  AddNewUser({
+  AddNewRecorder({
     required this.context,
     this.selectedDateTime,
     required this.update,
@@ -40,16 +40,7 @@ class AddNewUser {
 
   AlertDialog dialog({required Function setState}) {
     return AlertDialog(
-      title: const Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Icon(
-            Icons.checklist_rounded,
-            size: 35.0,
-          ),
-          Text('New Attendance')
-        ],
-      ),
+      title: const Center(child: Text('New Recorder')),
       content: SingleChildScrollView(
         child: ListBody(children: [
           _listInput[0],

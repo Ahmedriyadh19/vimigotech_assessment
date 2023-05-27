@@ -58,7 +58,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           final Future<SharedPreferences> preferences = SharedPreferences.getInstance();
           final SharedPreferences pref = await preferences;
           pref.setBool('is_first', false);
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (_) => const HomePage()),
           );

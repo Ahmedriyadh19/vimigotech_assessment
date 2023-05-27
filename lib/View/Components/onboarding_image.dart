@@ -22,28 +22,25 @@ class OnboardingImage extends StatelessWidget {
             fit: BoxFit.contain,
           ),
         ),
-        const SizedBox(height: 16),
-        Column(
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                description,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 16.0,
-                ),
-              ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            description,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 16.0,
             ),
-          ],
+          ),
         ),
       ],
     );
