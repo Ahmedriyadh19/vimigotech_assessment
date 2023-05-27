@@ -34,7 +34,7 @@ class OnboardingImage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 description,
                 textAlign: TextAlign.center,

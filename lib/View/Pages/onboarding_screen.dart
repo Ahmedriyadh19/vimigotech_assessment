@@ -16,7 +16,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int _currentPageIndex = 0;
-  final List<Widget> _pages = [
+  final List<OnboardingImage> _pages = [
     const OnboardingImage(
       title: 'Sort',
       description: 'Description ',
@@ -51,7 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Padding skipBtn() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(bottom: 8.0),
       child: ElevatedButton(
         child: const Text('Skip'),
         onPressed: () async {
@@ -67,29 +67,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  SizedBox dotsBar({required double h}) {
-    return SizedBox(
-      height: h / 9,
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              DotsIndicator(
-                dotsCount: _pages.length,
-                position: _currentPageIndex,
-                decorator: DotsDecorator(
-                  activeSize: const Size(18.0, 9.0),
-                  activeShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-              ),
-              skipBtn()
-            ],
-          ),
+  DotsIndicator dotsBar() {
+    return DotsIndicator(
+      dotsCount: _pages.length,
+      position: _currentPageIndex,
+      decorator: DotsDecorator(
+        activeSize: const Size(18.0, 9.0),
+        activeShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
         ),
       ),
     );
@@ -115,12 +100,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
+  Column bottomPart() {
+    return Column(
+      children: [dotsBar(), skipBtn()],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Column(
-        children: [imagesSlider(), dotsBar(h: h)],
+        children: [imagesSlider(), bottomPart()],
       ),
     );
   }
