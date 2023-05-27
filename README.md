@@ -1,9 +1,6 @@
 # vimigotech_assessment
 
-Assessment for Flutter Framework
-
-here is my spending time on this project:
-https://wakatime.com/@ahriyadh19/projects/nmohkcmgvv?start=2023-05-21&end=2023-05-27
+A new Flutter project.
 
 ## Getting Started
 
