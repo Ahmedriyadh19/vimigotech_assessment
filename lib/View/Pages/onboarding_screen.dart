@@ -18,33 +18,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   int _currentPageIndex = 0;
   final List<OnboardingImage> _pages = [
     const OnboardingImage(
-      title: 'Sort',
-      description: 'Description ',
+      title: 'Effortless Sorting',
+      description:
+          'Easily organize your data by various criteria. Take full control of the sorting order by choosing between ascending or descending arrangements.',
       imagePath: 'lib/Assets/Onboarding/0.png',
     ),
     const OnboardingImage(
-      title: 'Toggle time format',
-      description: 'Description ',
+      title: 'Flexible Time Display',
+      description: 'With a simple toggle, change the display format of time and rest assured that your preference will be saved for future use.',
       imagePath: 'lib/Assets/Onboarding/1.png',
     ),
     const OnboardingImage(
-      title: 'Search',
-      description: 'Description ',
+      title: 'Powerful Data Search',
+      description:
+          'Harness the power of our advanced search feature to find specific information in any field of your data, including names, phone numbers, and check-in dates',
       imagePath: 'lib/Assets/Onboarding/2.png',
     ),
     const OnboardingImage(
-      title: 'Add new Attendance',
-      description: 'Description ',
+      title: 'Record New Attendance',
+      description:
+          'Initiate the recording process by clicking this button. A convenient form will appear, ready to be filled out for the new record.',
       imagePath: 'lib/Assets/Onboarding/3.png',
     ),
     const OnboardingImage(
-      title: 'Open in New Page',
-      description: 'Description ',
+      title: 'Enter Attendance Details',
+      description:
+          'Complete the form to submit your new record accurately. This intuitive interface ensures seamless entry of essential information.',
       imagePath: 'lib/Assets/Onboarding/4.png',
     ),
     const OnboardingImage(
-      title: 'Share',
-      description: 'Description ',
+      title: 'Share Information Easily',
+      description:
+          'Effortlessly capture and share information as an image accompanied by text. Share records with others conveniently and efficiently',
       imagePath: 'lib/Assets/Onboarding/5.png',
     ),
   ];

@@ -26,5 +26,5 @@ class User {
   }
 
   String toStringPrint({required bool format}) =>
-      'Attendance:\nName: $user\nPhone Number: $phone\nCheck In: ${format ? CountTimeAgo(checkIn).timeAgo() : DateFormat('dd MMM yyyy, h:mm a').format(checkIn)})';
+      'Attendance:\nName: $user\nPhone Number: $phone\nCheck In: ${format ? CountTimeAgo(checkIn).timeAgo() : DateFormat('dd MMM yyyy, h:mm a').format(checkIn)}';
 }
